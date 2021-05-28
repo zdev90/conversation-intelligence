@@ -10,13 +10,7 @@ const Container = styled.div(
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-
-    // position: absolute;
-    width: 930px;
     height: 54px;
-    // left: 0px;
-    // top: 0px;
-
     background: ${theme.colors.grey_5};
   `
 );

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { buildStyledComponent } from 'style';
 
 const Component = ({ type, children, icon, hoverIcon, ...props }) => {
-  console.log(hoverIcon);
   return (
     <button type={type || 'button'} {...props}>
       {children}

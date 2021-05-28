@@ -1,14 +1,13 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
-import { ControlBar } from 'components';
+import { ControlBar, TranscriptList } from 'components';
 
 import theme from 'style/theme';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 930px;
+  margin: 0 auto;
 `;
 
 function App() {
@@ -16,6 +15,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container>
         <ControlBar />
+        <TranscriptList />
       </Container>
     </ThemeProvider>
   );
