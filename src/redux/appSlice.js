@@ -31,10 +31,16 @@ export const appSlice = createSlice({
       state.playPosition = action.payload;
     },
     moveForward: (state) => {
-      state.playPosition = state.playPosition + PLAYER_SKIP_DURATION;
+      state.playPosition = Math.min(
+        state.playPosition + PLAYER_SKIP_DURATION,
+        state.duration
+      );
     },
     moveBackward: (state) => {
-      state.playPosition = state.playPosition - PLAYER_SKIP_DURATION;
+      state.playPosition = Math.max(
+        0,
+        state.playPosition - PLAYER_SKIP_DURATION
+      );
     },
     increasePlaySpeed: (state) => {
       state.playSpeed =
