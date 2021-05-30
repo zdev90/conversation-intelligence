@@ -13,6 +13,7 @@ import {
   moveForward,
   selectPlaySpeed,
   increasePlaySpeed,
+  setDuration,
 } from 'redux/appSlice';
 import assets from 'assets';
 import { PLAY_STATUS } from 'redux/constants';
@@ -74,7 +75,10 @@ export const Player = () => {
           position={playPosition}
           playbackRate={parseFloat(playSpeed.slice(0, -1))}
           onLoading={(sound) => setLoading(!sound.loaded)}
-          onLoad={(sound) => setLoading(!sound.loaded)}
+          onLoad={(sound) => {
+            setLoading(!sound.loaded);
+            dispatch(setDuration(sound.duration));
+          }}
           onPlaying={(sound) => dispatch(setPlayPosition(sound.position))}
           onFinishedPlaying={() => updatePlayStatus(PLAY_STATUS.STOPPED)}
         />

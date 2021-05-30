@@ -2,8 +2,8 @@ export function parseTime(seconds, milliseconds = true) {
   return parseFloat(seconds.slice(0, -1)) * (milliseconds ? 1000 : 1);
 }
 
-export function hhmmss(seconds) {
-  const total = parseTime(seconds, false);
+export function hhmmss(seconds, milliseconds = false) {
+  const total = parseTime(seconds, !milliseconds) / 1000;
   const sec = Math.floor(total % 60);
   const min = Math.floor(total / 60) % 60;
   const hour = Math.floor(total / 3600);

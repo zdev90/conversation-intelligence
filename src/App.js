@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ControlBar, TranscriptList } from 'app';
+import { ControlBar, TranscriptList, WaveformBar } from 'app';
 import { loadData, selectLoading } from 'redux/appSlice';
 
 import theme from 'style/theme';
@@ -26,6 +26,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container>
         <ControlBar />
+        <WaveformBar />
         <TranscriptList />
       </Container>
     </ThemeProvider>
