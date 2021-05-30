@@ -9,6 +9,7 @@ const initialState = {
   playPosition: 0,
   playSpeed: PLAY_SPEED[0],
   duration: 0,
+  cursorPosition: 0,
   url: null,
   transcript: null,
 };
@@ -44,6 +45,9 @@ export const appSlice = createSlice({
     setDuration: (state, action) => {
       state.duration = action.payload;
     },
+    setCursorPosition: (state, action) => {
+      state.cursorPosition = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,6 +70,7 @@ export const {
   moveForward,
   increasePlaySpeed,
   setDuration,
+  setCursorPosition,
 } = appSlice.actions;
 
 export const selectUrl = (state) => state.app.url;
@@ -76,5 +81,6 @@ export const selectLoading = (state) => state.app.loading;
 export const selectTranscript = (state) => state.app.transcript;
 export const selectTotalTime = (state) => state.app.words[state.app.words - 1];
 export const selectDuration = (state) => state.app.duration;
+export const selectCursorPosition = (state) => state.app.cursorPosition;
 
 export default appSlice.reducer;

@@ -1,17 +1,27 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { selectDuration, selectPlayPosition } from 'redux/appSlice';
+import {
+  selectDuration,
+  selectPlayPosition,
+  selectCursorPosition,
+} from 'redux/appSlice';
 import { buildStyledComponent } from 'style';
 import { hhmmss } from 'utils/helper';
 
 const Component = (props) => {
   const duration = useSelector(selectDuration);
   const playPosition = useSelector(selectPlayPosition);
+  const cursorPosition = useSelector(selectCursorPosition);
 
   return (
     <div {...props}>
-      <span>{hhmmss(playPosition + 's', true)}</span>&nbsp;/&nbsp;
+      <span>
+        {cursorPosition
+          ? hhmmss(cursorPosition + 's', true)
+          : hhmmss(playPosition + 's', true)}
+      </span>
+      &nbsp;/&nbsp;
       {hhmmss(duration + 's', true)}
     </div>
   );
