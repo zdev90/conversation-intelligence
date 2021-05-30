@@ -8,7 +8,8 @@ import { loadData, selectLoading } from 'redux/appSlice';
 import theme from 'style/theme';
 
 const Container = styled.div`
-  width: 930px;
+  max-width: 930px;
+  width: 100%;
   margin: 0 auto;
 `;
 
