@@ -1,5 +1,6 @@
 const colors = {
   blue_1: '#1991EB',
+  blue_4: '#BDE1FC',
   blue_5: '#EDF7FF',
   green_1: '#02C797',
   white: '#FFFFFF',

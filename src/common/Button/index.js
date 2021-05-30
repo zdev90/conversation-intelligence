@@ -13,10 +13,13 @@ const Component = ({ type, children, icon, hoverIcon, ...props }) => {
 const modifierConfig = {
   primary: ({ theme }) => `
     background: ${theme.colors.blue_1};
+    border-color: ${theme.colors.blue_1};
+    color: ${theme.colors.white};
   `,
   secondary: ({ theme }) => `
     background: ${theme.colors.white};
     border-color: ${theme.colors.grey_4};
+    color: ${theme.colors.grey_2};
   `,
   transparent: ({ theme }) => `
     background: ${theme.colors.transparent};
@@ -34,6 +37,12 @@ const modifierConfig = {
     padding: 2px 8px;
     font-size: 12px;
     line-height: 16px;
+  `,
+  action: ({ theme }) => `
+    background: ${theme.colors.transparent};
+    border-color: ${theme.colors.transparent};
+    color: ${theme.colors.blue_1};
+    padding: 4px 0;
   `,
 };
 

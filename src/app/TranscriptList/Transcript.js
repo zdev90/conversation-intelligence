@@ -7,17 +7,16 @@ import { Button } from 'common';
 const Duration = styled.div``;
 const Text = styled.div``;
 const Word = styled.span``;
-const Nbsp = () => '\u00A0';
 
 const Component = ({ words, ...props }) => {
   if (!words?.length) return null;
 
   return (
     <div {...props}>
-      <Duration>{hhmmss(words[0].startTime)}</Duration>
+      <Duration>{hhmmss('13s')}</Duration>
       <Text>
-        {words.map((word) => (
-          <Word>{word.word}</Word>
+        {words.map((word, index) => (
+          <Word key={index}>{word.word}</Word>
         ))}
         <Button
           modifiers={['action']}
