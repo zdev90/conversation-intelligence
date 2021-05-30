@@ -1,15 +1,31 @@
 import styled from 'styled-components';
 
 import { buildStyledComponent } from 'style';
+import { hhmmss } from 'utils/helper';
+import { Button } from 'common';
 
 const Duration = styled.div``;
 const Text = styled.div``;
+const Word = styled.span``;
+const Nbsp = () => '\u00A0';
 
-const Component = ({ transcript, ...props }) => {
+const Component = ({ words, ...props }) => {
+  if (!words?.length) return null;
+
   return (
     <div {...props}>
-      <Duration>{transcript.duration}</Duration>
-      <Text>{transcript.text}</Text>
+      <Duration>{hhmmss(words[0].startTime)}</Duration>
+      <Text>
+        {words.map((word) => (
+          <Word>{word.word}</Word>
+        ))}
+        <Button
+          modifiers={['action']}
+          onClick={(e) => alert('Share button is clicked')}
+        >
+          Share
+        </Button>
+      </Text>
     </div>
   );
 };
@@ -32,6 +48,19 @@ const styles = ({ theme }) => `
   display: flex;
   margin: 0;
   padding: 16px 70px 16px 20px;
+  cursor: pointer;
+
+  button {
+    display: none;
+  }
+
+  &:hover {
+    background-color: ${theme.colors.blue_5};
+
+    button {
+      display: block;
+    }
+  }
 
   ${Duration} {
     font-size: 14px;
@@ -48,6 +77,17 @@ const styles = ({ theme }) => `
     font-weight: 400;
     color: ${theme.colors.grey_2};
     margin: 0 0 0 10px;
+    word-break: break-all;
+
+    ${Word} {
+      border-radius: 3px;
+      padding: 0 2px;
+  
+      &:hover {
+        background-color: ${theme.colors.blue_4};
+  
+      }
+    }
   }
 `;
 
