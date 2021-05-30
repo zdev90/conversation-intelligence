@@ -1,14 +1,14 @@
-import Sound from 'react-sound';
-
 import assets from 'assets';
+import { PLAY_STATUS } from 'redux/constants';
+
 import { Button } from 'common';
 
 const PlayButton = ({ status, onChange }) => {
   const handleClick = () => {
-    if (status === Sound.status.PAUSED || status === Sound.status.STOPPED) {
-      onChange(Sound.status.PLAYING);
+    if (status === PLAY_STATUS.PAUSED || status === PLAY_STATUS.STOPPED) {
+      onChange(PLAY_STATUS.PLAYING);
     } else {
-      onChange(Sound.status.PAUSED);
+      onChange(PLAY_STATUS.PAUSED);
     }
   };
 
@@ -16,7 +16,7 @@ const PlayButton = ({ status, onChange }) => {
     <Button
       modifiers={['primary', 'circle']}
       icon={
-        status === Sound.status.PLAYING ? assets.icons.pause : assets.icons.play
+        status === PLAY_STATUS.PLAYING ? assets.icons.pause : assets.icons.play
       }
       onClick={handleClick}
     ></Button>

@@ -1,12 +1,24 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Sound from 'react-sound';
+import Sound from './Sound';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectStatus, setStatus, selectUrl } from 'redux/appSlice';
+import {
+  selectUrl,
+  selectPlayStatus,
+  setPlayStatus,
+  selectPlayPosition,
+  setPlayPosition,
+  moveBackward,
+  moveForward,
+  selectPlaySpeed,
+  increasePlaySpeed,
+} from 'redux/appSlice';
+import assets from 'assets';
+import { PLAY_STATUS } from 'redux/constants';
+
 import PlayButton from './PlayButton';
 import { Button } from 'common';
-import assets from 'assets';
 
 const Container = styled.div`
   display: flex;
@@ -18,10 +30,12 @@ export const Player = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const status = useSelector(selectStatus);
   const url = useSelector(selectUrl);
+  const playStatus = useSelector(selectPlayStatus);
+  const playPosition = useSelector(selectPlayPosition);
+  const playSpeed = useSelector(selectPlaySpeed);
 
-  const updateStatus = (status) => dispatch(setStatus(status));
+  const updatePlayStatus = (status) => dispatch(setPlayStatus(status));
 
   return (
     <Container>
@@ -31,14 +45,24 @@ export const Player = () => {
             modifiers={['transparent', 'circle']}
             icon={assets.icons.rotateRefreshLeft}
             hoverIcon={assets.icons.rotateRefreshLeftBlue}
+            onClick={() => dispatch(moveBackward())}
           />
-          <PlayButton status={status} onChange={updateStatus}></PlayButton>
+          <PlayButton
+            status={playStatus}
+            onChange={updatePlayStatus}
+          ></PlayButton>
           <Button
             modifiers={['transparent', 'circle']}
             icon={assets.icons.rotateRefreshRight}
             hoverIcon={assets.icons.rotateRefreshRightBlue}
+            onClick={() => dispatch(moveForward())}
           />
-          <Button modifiers={['secondary', 'small', 'round']}>1.0x</Button>
+          <Button
+            modifiers={['secondary', 'small', 'round']}
+            onClick={() => dispatch(increasePlaySpeed())}
+          >
+            {playSpeed}
+          </Button>
         </>
       )}
 
@@ -46,11 +70,13 @@ export const Player = () => {
         <Sound
           url={url}
           autoLoad
-          playStatus={status}
-          playbackRate={1.0}
+          playStatus={playStatus}
+          position={playPosition}
+          playbackRate={parseFloat(playSpeed.slice(0, -1))}
           onLoading={(sound) => setLoading(!sound.loaded)}
           onLoad={(sound) => setLoading(!sound.loaded)}
-          onFinishedPlaying={() => updateStatus(Sound.status.STOPPED)}
+          onPlaying={(sound) => dispatch(setPlayPosition(sound.position))}
+          onFinishedPlaying={() => updatePlayStatus(PLAY_STATUS.STOPPED)}
         />
       )}
     </Container>

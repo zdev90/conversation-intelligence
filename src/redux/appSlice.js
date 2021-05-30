@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import Sound from 'react-sound';
 
 import { fetchData } from './api/';
+import { PLAY_STATUS, PLAYER_SKIP_DURATION, PLAY_SPEED } from './constants';
 
 const initialState = {
   loading: false,
-  status: Sound.status.STOPPED,
+  playStatus: PLAY_STATUS.STOPPED,
+  playPosition: 0,
+  playSpeed: PLAY_SPEED[0],
   url: null,
   transcript: null,
 };
@@ -20,8 +22,23 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setStatus: (state, action) => {
-      state.status = action.payload;
+    setPlayStatus: (state, action) => {
+      state.playStatus = action.payload;
+    },
+    setPlayPosition: (state, action) => {
+      state.playPosition = action.payload;
+    },
+    moveForward: (state) => {
+      state.playPosition = state.playPosition + PLAYER_SKIP_DURATION;
+    },
+    moveBackward: (state) => {
+      state.playPosition = state.playPosition - PLAYER_SKIP_DURATION;
+    },
+    increasePlaySpeed: (state) => {
+      state.playSpeed =
+        PLAY_SPEED[
+          (PLAY_SPEED.indexOf(state.playSpeed) + 1) % PLAY_SPEED.length
+        ];
     },
   },
   extraReducers: (builder) => {
@@ -38,10 +55,19 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setStatus } = appSlice.actions;
+export const {
+  setPlayStatus,
+  setPlayPosition,
+  moveBackward,
+  moveForward,
+  increasePlaySpeed,
+} = appSlice.actions;
 
 export const selectUrl = (state) => state.app.url;
-export const selectStatus = (state) => state.app.status;
+export const selectPlayStatus = (state) => state.app.playStatus;
+export const selectPlayPosition = (state) => state.app.playPosition;
+export const selectPlaySpeed = (state) => state.app.playSpeed;
 export const selectLoading = (state) => state.app.loading;
+export const selectTranscript = (state) => state.app.transcript;
 
 export default appSlice.reducer;

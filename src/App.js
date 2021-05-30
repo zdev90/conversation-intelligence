@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadData());
-  }, []);
+  }, [dispatch]);
 
   if (loading) return <div>loading...</div>;
 

@@ -1,22 +1,30 @@
 import styled from 'styled-components';
 
 import { buildStyledComponent } from 'style';
-import { hhmmss } from 'utils/helper';
+import { hhmmss, isBetween } from 'utils/helper';
 import { Button } from 'common';
 
 const Duration = styled.div``;
 const Text = styled.div``;
 const Word = styled.span``;
 
-const Component = ({ words, ...props }) => {
+const Component = ({ words, playPosition, onClickWord, ...props }) => {
   if (!words?.length) return null;
 
   return (
     <div {...props}>
-      <Duration>{hhmmss('13s')}</Duration>
+      <Duration>{hhmmss(words[0].startTime)}</Duration>
       <Text>
         {words.map((word, index) => (
-          <Word key={index}>{word.word}</Word>
+          <Word
+            key={`word_${index}`}
+            className={
+              isBetween(playPosition, word.startTime, word.endTime) && 'active'
+            }
+            onClick={() => onClickWord(word.startTime)}
+          >
+            {word.word}
+          </Word>
         ))}
         <Button
           modifiers={['action']}
@@ -47,7 +55,6 @@ const styles = ({ theme }) => `
   display: flex;
   margin: 0;
   padding: 16px 70px 16px 20px;
-  cursor: pointer;
 
   button {
     display: none;
@@ -81,8 +88,9 @@ const styles = ({ theme }) => `
     ${Word} {
       border-radius: 3px;
       padding: 0 2px;
+      cursor: pointer;
   
-      &:hover {
+      &:hover, &.active {
         background-color: ${theme.colors.blue_4};
   
       }
