@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { buildStyledComponent } from 'style';
 import { hhmmss, isBetween } from 'utils/helper';
-import { Button } from 'common';
+import { ShareButton } from 'common';
 
 const Duration = styled.div``;
 const Text = styled.div``;
@@ -26,12 +26,11 @@ const Component = ({ words, playPosition, onClickWord, ...props }) => {
             {word.word}
           </Word>
         ))}
-        <Button
+        <ShareButton
           modifiers={['action']}
-          onClick={(e) => alert('Share button is clicked')}
-        >
-          Share
-        </Button>
+          value="Share"
+          shareUrl={window.location.href}
+        />
       </Text>
     </div>
   );

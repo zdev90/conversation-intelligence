@@ -54,6 +54,8 @@ export const TranscriptList = () => {
               onClickWord={updatePosition}
             />
           );
+        } else {
+          return <></>;
         }
       })}
     </Container>

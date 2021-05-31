@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import assets from 'assets';
-import { Button, Player } from 'common';
+import { ShareButton, Player } from 'common';
 
 const Container = styled.div(
   ({ theme }) => `
@@ -19,9 +19,12 @@ export const ControlBar = () => {
   return (
     <Container>
       <Player />
-      <Button modifiers={['secondary']} icon={assets.icons.share}>
-        Share
-      </Button>
+      <ShareButton
+        modifiers={['secondary']}
+        icon={assets.icons.share}
+        value="Share"
+        shareUrl={window.location.href}
+      />
     </Container>
   );
 };
