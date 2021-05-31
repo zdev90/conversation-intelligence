@@ -1,3 +1,5 @@
+// Clone component of react-sound: https://www.npmjs.com/package/react-sound
+// Set custom interval(PLAYER_POLL_INTERVAL) for fast polling.
 import React from 'react';
 import PropTypes from 'prop-types';
 
