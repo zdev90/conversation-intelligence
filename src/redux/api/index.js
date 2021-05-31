@@ -6,7 +6,7 @@ export function fetchData() {
     setTimeout(
       () =>
         resolve({ data: { url: '/59e106639d79684277df770d.wav', transcript } }),
-      500
+      1000
     )
   );
 }

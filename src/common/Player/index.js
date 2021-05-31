@@ -40,32 +40,32 @@ export const Player = () => {
 
   return (
     <Container>
-      {!loading && (
-        <>
-          <Button
-            modifiers={['transparent', 'circle']}
-            icon={assets.icons.rotateRefreshLeft}
-            hoverIcon={assets.icons.rotateRefreshLeftBlue}
-            onClick={() => dispatch(moveBackward())}
-          />
-          <PlayButton
-            status={playStatus}
-            onChange={updatePlayStatus}
-          ></PlayButton>
-          <Button
-            modifiers={['transparent', 'circle']}
-            icon={assets.icons.rotateRefreshRight}
-            hoverIcon={assets.icons.rotateRefreshRightBlue}
-            onClick={() => dispatch(moveForward())}
-          />
-          <Button
-            modifiers={['secondary', 'small', 'round']}
-            onClick={() => dispatch(increasePlaySpeed())}
-          >
-            {playSpeed}
-          </Button>
-        </>
-      )}
+      <Button
+        modifiers={['transparent', 'circle']}
+        icon={assets.icons.rotateRefreshLeft}
+        hoverIcon={assets.icons.rotateRefreshLeftBlue}
+        onClick={() => dispatch(moveBackward())}
+        disabled={loading}
+      />
+      <PlayButton
+        status={playStatus}
+        onChange={updatePlayStatus}
+        disabled={loading}
+      ></PlayButton>
+      <Button
+        modifiers={['transparent', 'circle']}
+        icon={assets.icons.rotateRefreshRight}
+        hoverIcon={assets.icons.rotateRefreshRightBlue}
+        onClick={() => dispatch(moveForward())}
+        disabled={loading}
+      />
+      <Button
+        modifiers={['secondary', 'small', 'round']}
+        onClick={() => dispatch(increasePlaySpeed())}
+        disabled={loading}
+      >
+        {playSpeed}
+      </Button>
 
       {url && (
         <Sound
