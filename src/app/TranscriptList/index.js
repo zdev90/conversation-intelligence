@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,7 +9,7 @@ import {
   setPlayStatus,
 } from 'redux/appSlice';
 import { PLAY_STATUS } from 'redux/constants';
-import { parseTime, isBetween } from 'utils/helper';
+import { parseTime, isBetween, findString } from 'utils/helper';
 
 import { SearchBar } from 'common';
 import Transcript from './Transcript';
@@ -20,6 +21,7 @@ const Wrapper = styled.div`
 `;
 
 export const TranscriptList = () => {
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const transcript = useSelector(selectTranscript);
   const playPosition = useSelector(selectPlayPosition);
@@ -32,24 +34,28 @@ export const TranscriptList = () => {
   return (
     <Container>
       <Wrapper>
-        <SearchBar />
+        <SearchBar onChange={(event) => setSearch(event.target.value)} />
       </Wrapper>
-      {transcript?.word_timings.map((words, index) => (
-        <Transcript
-          key={`transcript_${index}`}
-          modifiers={[
-            index % 2 === 1 && 'secondary',
-            isBetween(
-              playPosition,
-              words[0].startTime,
-              words[words.length - 1].endTime
-            ) && 'active',
-          ]}
-          words={words}
-          playPosition={playPosition}
-          onClickWord={updatePosition}
-        />
-      ))}
+      {transcript?.word_timings.map((words, index) => {
+        if (findString(transcript.transcript_text[index], search)) {
+          return (
+            <Transcript
+              key={`transcript_${index}`}
+              modifiers={[
+                index % 2 === 1 && 'secondary',
+                isBetween(
+                  playPosition,
+                  words[0].startTime,
+                  words[words.length - 1].endTime
+                ) && 'active',
+              ]}
+              words={words}
+              playPosition={playPosition}
+              onClickWord={updatePosition}
+            />
+          );
+        }
+      })}
     </Container>
   );
 };

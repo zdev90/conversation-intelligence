@@ -19,3 +19,7 @@ export function isBetween(time, startTime, endTime) {
 
   return start <= time && time < end;
 }
+
+export function findString(text, word) {
+  return text.toLowerCase().indexOf(word.toLowerCase()) > -1;
+}

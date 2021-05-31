@@ -1,9 +1,9 @@
 import Wrapper from './Wrapper';
 
-export const SearchBar = () => {
+export const SearchBar = (props) => {
   return (
     <Wrapper>
-      <input type="text" />
+      <input type="text" {...props} />
     </Wrapper>
   );
 };
